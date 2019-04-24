@@ -22,9 +22,13 @@ namespace GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Instances of ClassBIZ
         ClassBIZ CB = new ClassBIZ();
         ClassBIZ CBTemp = new ClassBIZ();
 
+        /// <summary>
+        /// Sets DataContext and calls MakeDataBase from ClassBIZ.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -32,6 +36,14 @@ namespace GUI
             CB.MakeDataBase();
         }
 
+        /// <summary>
+        /// Enables and disables relevant objects on UI.
+        /// Sets SelectedCar to a new instance of car if the Create button is pressed.
+        /// Copies SelectedCar from CB to CBTemp.
+        /// Sets DataContext of gridInfo to CBTemp.
+        /// </summary>
+        /// <param name="sender">Invoked Button as a generic object</param>
+        /// <param name="e">RoutedEventArgs</param>
         private void ButtonCreateCar_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
@@ -57,6 +69,14 @@ namespace GUI
             gridInfo.DataContext = CBTemp;
         }
 
+        /// <summary>
+        /// Copies car from CBTemp to CB.
+        /// Calls SaveCar() from CB.
+        /// Sets DataContext of gridInfo to CB.
+        /// Enables and disables relevant objects on UI.
+        /// </summary>
+        /// <param name="sender">Invoked Button as a generic object</param>
+        /// <param name="e">RoutedEventArgs</param>
         private void ButtonSaveCar_Click(object sender, RoutedEventArgs e)
         {
             CopyCar(CB, CBTemp);
@@ -77,6 +97,12 @@ namespace GUI
             listViewCars.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Prompts the user with a YesNo MessageBox.
+        /// If user hits yes, calls DeleteCar() from CB.
+        /// </summary>
+        /// <param name="sender">Invoked Button as a generic object</param>
+        /// <param name="e">RoutedEventArgs</param>
         private void ButtonDeleteCar_Click(object sender, RoutedEventArgs e)
         {
             if (CB.SelectedCar.CarId != 0)
@@ -88,6 +114,12 @@ namespace GUI
             }
         }
 
+        /// <summary>
+        /// Sets DataContext of gridInfo to CB.
+        /// Enables and disables relevant objects on UI.
+        /// </summary>
+        /// <param name="sender">Invoked Button as a generic object</param>
+        /// <param name="e">RoutedEventArgs</param>
         private void ButtonDiscardChanges_Click(object sender, RoutedEventArgs e)
         {
             gridInfo.DataContext = CB;
@@ -106,11 +138,23 @@ namespace GUI
             listViewCars.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Clones SelectedCar from one ClassBIZ to another.
+        /// </summary>
+        /// <param name="toBIZ">ClassBIZ to copy to.</param>
+        /// <param name="fromBIZ">ClassBIZ to copy from.</param>
         private void CopyCar(ClassBIZ toBIZ, ClassBIZ fromBIZ)
         {
             toBIZ.SelectedCar = (Car)fromBIZ.SelectedCar.Clone();
         }
 
+        /// <summary>
+        /// Casts the selected item from listview to Car and sets
+        /// SelectedCar to the selected item.
+        /// If the CarId of SelectedCar is not 0, the Edit Car button is enabled.
+        /// </summary>
+        /// <param name="sender">Invoked ListView as a generic object</param>
+        /// <param name="e">SelectionChangedEventArgs</param>
         private void ListViewCars_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListView lv = (ListView)sender;

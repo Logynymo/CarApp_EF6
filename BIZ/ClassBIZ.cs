@@ -14,6 +14,7 @@ namespace BIZ
 {
     public class ClassBIZ : ClassNotify
     {
+        // Private fields
         private Car selectedCar;
         private ObservableCollection<Car> cars;
         private ObservableCollection<Brand> brands;
@@ -161,6 +162,7 @@ namespace BIZ
         {
             using (CarContext ccx = new CarContext())
             {
+                // Attaches SelectedCar to the DbSet
                 ccx.Cars.Attach(SelectedCar);
                 ccx.Cars.Remove(SelectedCar);
                 ccx.SaveChanges();
