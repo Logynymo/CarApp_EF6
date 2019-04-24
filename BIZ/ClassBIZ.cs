@@ -12,14 +12,14 @@ using System.Data.Entity.Migrations;
 
 namespace BIZ
 {
-    public class BIZ : ClassNotify
+    public class ClassBIZ : ClassNotify
     {
         private Car selectedCar;
         private ObservableCollection<Car> cars;
         private ObservableCollection<Brand> brands;
         private ObservableCollection<Propellant> propellants;
 
-        public BIZ()
+        public ClassBIZ()
         {
             GetData(true);
             SelectedCar = new Car();
@@ -99,8 +99,7 @@ namespace BIZ
                 }
             }
         }
-
-
+        
         /// <summary>
         /// Gets data from Data Base.
         /// </summary>
@@ -135,7 +134,7 @@ namespace BIZ
         /// Saves the new car or changes to existing car in Data Base.
         /// </summary>
         /// <param name="isEdited">True if editing an existing car, otherwise false.</param>
-        public void SaveCar(bool isEdited)
+        public void SaveCar()
         {
             using (CarContext ccx = new CarContext())
             {
@@ -144,7 +143,7 @@ namespace BIZ
                 ccx.Cars.AddOrUpdate(SelectedCar);
                 ccx.SaveChanges();
             }
-            if (!isEdited)
+            if (SelectedCar.CarId == 0)
             {
                 SelectedCar = new Car();
             }

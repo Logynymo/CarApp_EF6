@@ -13,14 +13,16 @@
         </Grid.ColumnDefinitions>
         <ListView x:Name="listViewCars"
                   Margin="10"
-                  DisplayMemberPath="AnimalName">
+                  ItemsSource="{Binding Cars}"
+                  SelectionChanged="ListViewCars_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Mærke"
                                     Width="150"
-                                    DisplayMemberBinding="{Binding CarName}" />
+                                    DisplayMemberBinding="{Binding Brand.BrandName}" />
                     <GridViewColumn Header="Model"
-                                    Width="150" />
+                                    Width="150"
+                                    DisplayMemberBinding="{Binding Model}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -63,7 +65,12 @@
                    VerticalAlignment="Center"
                    Margin="40,0,0,0" />
 
-            <ComboBox x:Name="comboBoxCarModel"
+            <ComboBox x:Name="comboBoxCarBrand"
+                      ItemsSource="{Binding Brands}"
+                      SelectedValue="{Binding SelectedCar.Brand.BrandName}"
+                      SelectedItem="{Binding SelectedCar.Brand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="BrandName"
+                      SelectedValuePath="BrandName"
                       Grid.Column="1"
                       Grid.Row="0"
                       Grid.ColumnSpan="2"
@@ -72,6 +79,7 @@
                       VerticalContentAlignment="Center"
                       IsEnabled="False" />
             <TextBox x:Name="textBoxCarModel"
+                     Text="{Binding SelectedCar.Model, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Grid.Column="1"
                      Grid.Row="1"
                      Grid.ColumnSpan="2"
@@ -80,6 +88,11 @@
                      VerticalContentAlignment="Center"
                      IsEnabled="False" />
             <ComboBox x:Name="comboBoxCarPropellant"
+                      ItemsSource="{Binding Propellants}"
+                      SelectedValue="{Binding SelectedCar.Propellant.PropellantName}"
+                      SelectedItem="{Binding SelectedCar.Propellant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="PropellantName"
+                      SelectedValuePath="PropellantName"
                       Grid.Column="1"
                       Grid.Row="2"
                       Grid.ColumnSpan="2"
@@ -88,6 +101,7 @@
                       VerticalContentAlignment="Center"
                       IsEnabled="False" />
             <TextBox x:Name="textBoxCarLicensePlate"
+                     Text="{Binding SelectedCar.LicensePlate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Grid.Column="1"
                      Grid.Row="3"
                      Grid.ColumnSpan="2"
@@ -101,30 +115,36 @@
                     Content="Opret"
                     Grid.Row="4"
                     Margin="30,30,30,20"
-                    Tag="1" />
+                    Tag="1"
+                    Click="ButtonCreateCar_Click" />
             <Button x:Name="buttonEditCar"
                     Content="Redigér"
                     Grid.Column="1"
                     Grid.Row="4"
                     Margin="30,30,30,20"
-                    Tag="2" />
+                    Tag="2"
+                    IsEnabled="False"
+                    Click="ButtonCreateCar_Click"/>
             <Button x:Name="buttonDeleteCar"
                     Content="Slet"
                     Grid.Column="2"
                     Grid.Row="4"
-                    Margin="30,30,30,20" />
+                    Margin="30,30,30,20" 
+                    Click="ButtonDeleteCar_Click" />
             <Button x:Name="buttonSaveCar"
                     Content="Gem"
                     Grid.Column="0"
                     Grid.Row="4"
                     Margin="30,30,30,20"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed" 
+                    Click="ButtonSaveCar_Click" />
             <Button x:Name="buttonDiscardChanges"
                     Content="Afbryd"
                     Grid.Column="1"
                     Grid.Row="4"
                     Margin="30,30,30,20"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    Click="ButtonDiscardChanges_Click" />
         </Grid>
     </Grid>
 </Window>
