@@ -8,6 +8,7 @@ using IO;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Validation;
 using System.Windows;
+using System.Data.Entity.Migrations;
 
 namespace BIZ
 {
@@ -20,7 +21,7 @@ namespace BIZ
 
         public BIZ()
         {
-            GetData(1);
+            GetData(true);
             SelectedCar = new Car();
         }
 
@@ -78,7 +79,9 @@ namespace BIZ
             }
         }
 
-
+        /// <summary>
+        /// Creates a database if it doesn't exist
+        /// </summary>
         public void MakeDataBase()
         {
             try
@@ -101,27 +104,63 @@ namespace BIZ
         /// <summary>
         /// Gets data from Data Base.
         /// </summary>
-        /// <param name="mode">1 for all data. 2 for just cars.</param>
-        public void GetData(int mode)
+        /// <param name="mode">True to get all data related to cars.</param>
+        public void GetData(bool getAll)
         {
-            if (mode == 1)
+            if (getAll)
             {
                 using (CarContext ccx = new CarContext())
                 {
-                    Cars = new ObservableCollection<Car>(ccx.Cars.ToList() as List<Car>);
+                    Cars = new ObservableCollection<Car>(ccx.Cars
+                        .Include("Brand")
+                        .Include("Propellant")
+                        .ToList() as List<Car>);
                     Brands = new ObservableCollection<Brand>(ccx.Brands.ToList() as List<Brand>);
                     Propellants = new ObservableCollection<Propellant>(ccx.Propellants.ToList() as List<Propellant>);
                 }
             }
-            else if(mode == 2)
+            else
             {
                 using (CarContext ccx = new CarContext())
                 {
-                    Cars = new ObservableCollection<Car>(ccx.Cars.ToList() as List<Car>);
+                    Cars = new ObservableCollection<Car>(ccx.Cars
+                        .Include("Brand")
+                        .Include("Propellant")
+                        .ToList() as List<Car>);
                 }
             }
         }
 
+        /// <summary>
+        /// Saves the new car or changes to existing car in Data Base.
+        /// </summary>
+        /// <param name="isEdited">True if editing an existing car, otherwise false.</param>
+        public void SaveCar(bool isEdited)
+        {
+            using (CarContext ccx = new CarContext())
+            {
+                ccx.Brands.Attach(SelectedCar.Brand);
+                ccx.Propellants.Attach(SelectedCar.Propellant);
+                ccx.Cars.AddOrUpdate(SelectedCar);
+                ccx.SaveChanges();
+            }
+            if (!isEdited)
+            {
+                SelectedCar = new Car();
+            }
+            GetData(false);
+        }
 
+        public void DeleteCar()
+        {
+            using (CarContext ccx = new CarContext())
+            {
+                ccx.Cars.Attach(SelectedCar);
+                ccx.Cars.Remove(SelectedCar);
+                ccx.SaveChanges();
+            }
+            SelectedCar = new Car();
+            GetData(false);
+        }
     }
 }
