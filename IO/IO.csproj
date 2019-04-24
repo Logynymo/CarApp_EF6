@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="CarContext.cs" />
     <Compile Include="CarContextSeedInitializer.cs" />
+    <Compile Include="EntityConfigurationBrand.cs" />
     <Compile Include="EntityConfigurationCar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
