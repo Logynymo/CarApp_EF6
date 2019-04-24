@@ -35,7 +35,7 @@ namespace IO
         /// <param name="modelBuilder">DbModelBuilder</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Configurations.AddFromAssembly(typeof(CarContext).Assembly);
         }
     }
 }
