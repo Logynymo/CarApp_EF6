@@ -16,7 +16,19 @@ namespace IO
 
             this.HasKey<int>(c => c.CarId);
 
+            this.Property(c => c.Model)
+                .HasMaxLength(50)
+                .IsRequired();
 
+            this.Property(c => c.LicensePlate)
+                .HasMaxLength(20)
+                .IsRequired();
+
+            this.Property(c => c.BrandId)
+                .IsRequired();
+
+            this.Property(c => c.PropellantId)
+                .IsRequired();
         }
     }
 }
