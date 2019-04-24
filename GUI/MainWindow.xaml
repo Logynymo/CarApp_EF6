@@ -1,0 +1,130 @@
+﻿<Window x:Class="GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid x:Name="gridMain">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="listViewCars"
+                  Margin="10"
+                  DisplayMemberPath="AnimalName">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Mærke"
+                                    Width="150"
+                                    DisplayMemberBinding="{Binding CarName}" />
+                    <GridViewColumn Header="Model"
+                                    Width="150" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Grid x:Name="gridInfo"
+              Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0"
+                   Grid.Row="0"
+                   Content="Mærke:"
+                   VerticalAlignment="Center"
+                   Margin="40,0,0,0" />
+            <Label Grid.Column="0"
+                   Grid.Row="1"
+                   Content="Model:"
+                   VerticalAlignment="Center"
+                   Margin="40,0,0,0" />
+            <Label Grid.Column="0"
+                   Grid.Row="2"
+                   Content="Drivmiddel:"
+                   VerticalAlignment="Center"
+                   Margin="40,0,0,0" />
+            <Label Grid.Column="0"
+                   Grid.Row="3"
+                   Content="Nummerplade:"
+                   VerticalAlignment="Center"
+                   Margin="40,0,0,0" />
+
+            <ComboBox x:Name="comboBoxCarModel"
+                      Grid.Column="1"
+                      Grid.Row="0"
+                      Grid.ColumnSpan="2"
+                      Height="26"
+                      Margin="0,0,140,0"
+                      VerticalContentAlignment="Center"
+                      IsEnabled="False" />
+            <TextBox x:Name="textBoxCarModel"
+                     Grid.Column="1"
+                     Grid.Row="1"
+                     Grid.ColumnSpan="2"
+                     Height="26"
+                     Margin="0,0,90,0"
+                     VerticalContentAlignment="Center"
+                     IsEnabled="False" />
+            <ComboBox x:Name="comboBoxCarPropellant"
+                      Grid.Column="1"
+                      Grid.Row="2"
+                      Grid.ColumnSpan="2"
+                      Height="26"
+                      Margin="0,0,140,0"
+                      VerticalContentAlignment="Center"
+                      IsEnabled="False" />
+            <TextBox x:Name="textBoxCarLicensePlate"
+                     Grid.Column="1"
+                     Grid.Row="3"
+                     Grid.ColumnSpan="2"
+                     Height="26"
+                     Margin="0,0,90,0"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     IsEnabled="False" />
+
+            <Button x:Name="buttonCreateCar"
+                    Content="Opret"
+                    Grid.Row="4"
+                    Margin="30,30,30,20"
+                    Tag="1" />
+            <Button x:Name="buttonEditCar"
+                    Content="Redigér"
+                    Grid.Column="1"
+                    Grid.Row="4"
+                    Margin="30,30,30,20"
+                    Tag="2" />
+            <Button x:Name="buttonDeleteCar"
+                    Content="Slet"
+                    Grid.Column="2"
+                    Grid.Row="4"
+                    Margin="30,30,30,20" />
+            <Button x:Name="buttonSaveCar"
+                    Content="Gem"
+                    Grid.Column="0"
+                    Grid.Row="4"
+                    Margin="30,30,30,20"
+                    Visibility="Collapsed" />
+            <Button x:Name="buttonDiscardChanges"
+                    Content="Afbryd"
+                    Grid.Column="1"
+                    Grid.Row="4"
+                    Margin="30,30,30,20"
+                    Visibility="Collapsed" />
+        </Grid>
+    </Grid>
+</Window>
