@@ -81,7 +81,10 @@ namespace GUI
         {
             if (CB.SelectedCar.CarId != 0)
             {
-                CB.DeleteCar();
+                if (MessageBox.Show("Vil du slette bilen fra databasen?", "Advarsel", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    CB.DeleteCar();
+                }
             }
         }
 
@@ -113,13 +116,18 @@ namespace GUI
             ListView lv = (ListView)sender;
             if (lv.SelectedItem != null)
             {
-                buttonEditCar.IsEnabled = true;
                 CB.SelectedCar = null;
                 CB.SelectedCar = (Car)lv.SelectedItem;
-            }
-            else
-            {
-                buttonEditCar.IsEnabled = false;
+
+                if (CB.SelectedCar.CarId != 0)
+                {
+                    buttonEditCar.IsEnabled = true;
+                }
+
+                else
+                {
+                    buttonEditCar.IsEnabled = false;
+                }
             }
         }
     }

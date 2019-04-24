@@ -19,6 +19,10 @@ namespace BIZ
         private ObservableCollection<Brand> brands;
         private ObservableCollection<Propellant> propellants;
 
+        /// <summary>
+        /// Default constructor.
+        /// Calls methods to get data from database.
+        /// </summary>
         public ClassBIZ()
         {
             GetData(true);
@@ -150,6 +154,9 @@ namespace BIZ
             GetData(false);
         }
 
+        /// <summary>
+        /// Deletes the car the user has selected.
+        /// </summary>
         public void DeleteCar()
         {
             using (CarContext ccx = new CarContext())
